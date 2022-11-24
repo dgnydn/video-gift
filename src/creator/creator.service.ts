@@ -51,7 +51,7 @@ export class CreatorService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.creator.findFirstOrThrow({
+    const creator = await this.prisma.creator.findFirstOrThrow({
       where: {
         id,
       },
@@ -59,6 +59,11 @@ export class CreatorService {
         videos: true,
       },
     });
+    if (creator) {
+      delete creator.password;
+      return { status: 'success', data: creator };
+    }
+    return new NotFoundException('No creator found');
   }
 
   async update(id: number, updateCreatorDto: UpdateCreatorDto) {
