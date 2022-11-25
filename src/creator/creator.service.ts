@@ -30,17 +30,8 @@ export class CreatorService {
         email: true,
         name: true,
         avatar: true,
-        videos: {
-          select: {
-            id: true,
-            title: true,
-            cover: true,
-            url: true,
-            author: true,
-            customer: true,
-            published: true,
-          },
-        },
+        isAvailable: true,
+        videos: true,
       },
     });
     if (creators) {

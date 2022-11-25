@@ -28,7 +28,7 @@ export class VideoService {
     return this.prisma.video.findMany({
       include: {
         author: true,
-        customer: true,
+        Order: true,
       },
     });
   }

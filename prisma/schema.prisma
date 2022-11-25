@@ -11,21 +11,22 @@ datasource db {
 }
 
 model Creator {
-  id     Int     @id @default(autoincrement())
-  email  String  @unique
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
   password String
-  name   String
-  videos Video[]
-  avatar String?
+  name     String
+  videos   Video[]
+  avatar   String?
+  isAvailable Boolean @default(true)
 }
 
 model Customer {
-  id     Int     @id @default(autoincrement())
-  email  String  @unique
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
   password String
-  name   String
-  videos Video[]
-  avatar String?
+  name     String
+  avatar   String?
+  Order    Order[]
 }
 
 model Video {
@@ -36,6 +37,15 @@ model Video {
   cover     String?
   author    Creator? @relation(fields: [authorId], references: [id])
   authorId  Int?
-  customer  Customer? @relation(fields: [customerId], references: [id])
-  customerId Int?
+  Order     Order[]
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+  video      Video    @relation(fields: [videoId], references: [id])
+  videoId    Int
+  price      Int
+  status     String   @default("pending")
 }

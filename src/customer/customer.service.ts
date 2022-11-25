@@ -27,7 +27,7 @@ export class CustomerService {
   findAll() {
     return this.prisma.customer.findMany({
       include: {
-        videos: true,
+        Order: true,
       },
     });
   }
